@@ -31,7 +31,11 @@ Markdown anki decks can be reimported without creating duplicates.
 
 Make sure you have a python version of 3.7 or greater installed.
 
-`pip install markdown-anki-decks`
+Ideally you simply install it into a global virtual environment with uv: `uv tool install git+https://github.com/marty-oehme/markdown-anki-decks.git@chore/uv`.
+
+If you want to use pip:
+
+`pip install git+https://github.com/marty-oehme/markdown-anki-decks.git@chore/uv`
 
 This will install the `mdankideck` cli tool.
 
