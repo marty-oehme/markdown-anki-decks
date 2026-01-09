@@ -31,7 +31,7 @@ def version_callback(value: bool):
         raise typer.Exit()
 
 
-@app.command("convert")
+@app.command()
 def convertMarkdown(
     input_dir: Path = typer.Argument(
         ...,
