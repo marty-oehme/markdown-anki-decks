@@ -1,9 +1,11 @@
 """CLI for markdown anki decks package."""
+
 import hashlib
 import itertools
 import os
 import re
 from pathlib import Path
+from typing import NamedTuple, cast
 from urllib.parse import urlparse
 
 import frontmatter
@@ -17,7 +19,6 @@ from genanki.model import Model
 
 from markdown_anki_decks.sync import sync_deck, sync_model
 from markdown_anki_decks.utils import print_success
-import typing as t
 
 app = typer.Typer()
 
@@ -34,11 +35,10 @@ def version_callback(value: bool):
 @app.command()
 def convertMarkdown(
     input_dir: Path = typer.Argument(
-        ...,
         help="The input directory. Contains markdown files which will be converted to anki decks.",
     ),
     output_dir: Path = typer.Argument(
-        ..., help="The output directory. Anki .apkg files will be written here."
+        help="The output directory. Anki .apkg files will be written here."
     ),
     sync: bool = typer.Option(
         False,
@@ -100,10 +100,10 @@ def is_question_tag(tag: Tag):
     return tag.name == "h2" or (isinstance(tag, Tag) and tag.has_attr("data-question"))
 
 
-class ParseMarkdownResult(t.NamedTuple):
+class ParseMarkdownResult(NamedTuple):
     deck: Deck
-    referenced_img_files: t.List[Path]
-    referenced_sound_files: t.List[Path]
+    referenced_img_files: list[Path]
+    referenced_sound_files: list[Path]
 
 
 def parse_markdown(
@@ -250,7 +250,7 @@ def parse_markdown(
 def parse_image_files(directory: Path, soup: BeautifulSoup):
     local_img_files = set(image_files(directory))
     img_tags = soup.find_all("img")
-    img_urls: t.List[str] = [
+    img_urls: list[str] = [
         tag.get("src") for tag in img_tags if tag.get("src") is not None
     ]
     relative_img_urls = [url for url in img_urls if is_relative_url(url)]
@@ -266,11 +266,11 @@ def parse_image_files(directory: Path, soup: BeautifulSoup):
 def parse_sound_files(directory: Path, soup: BeautifulSoup):
     local_sound_files = set(sound_files(directory))
     sound_regex = re.compile(r"\[sound:(.*?)\]")
-    sound_strings: t.List[str] = soup.find_all(string=sound_regex)
+    sound_strings: list[str] = soup.find_all(string=sound_regex)
     sound_urls = list(
         itertools.chain(
             *[
-                t.cast(t.List[str], re.findall(sound_regex, reference_string))
+                cast(list[str], re.findall(sound_regex, reference_string))
                 for reference_string in sound_strings
             ]
         )

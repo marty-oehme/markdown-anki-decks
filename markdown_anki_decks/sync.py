@@ -1,5 +1,4 @@
 import json
-import typing as t
 import urllib.request
 from pathlib import Path
 
@@ -75,11 +74,11 @@ def sync_deck(deck: Deck, pathToDeckPackage: Path, delete_cards: bool):
             # delete removed cards
             try:
                 # get a list of anki cards in the deck
-                anki_card_ids: t.List[int] = invoke(
+                anki_card_ids: list[int] = invoke(
                     "findCards", query=f'"deck:{deck.name}"'
                 )
                 # get a list of anki notes in the deck
-                anki_note_ids: t.List[int] = invoke("cardsToNotes", cards=anki_card_ids)
+                anki_note_ids: list[int] = invoke("cardsToNotes", cards=anki_card_ids)
                 # get the note info for the notes in the deck
                 anki_notes_info = invoke("notesInfo", notes=anki_note_ids)
                 # convert the note info into a dictionary of guid to note info
@@ -89,7 +88,7 @@ def sync_deck(deck: Deck, pathToDeckPackage: Path, delete_cards: bool):
                 # get the unique guids of the anki notes
                 anki_note_guids = anki_note_info_by_guid.keys()
                 # get the unique guids of the md notes
-                md_notes: t.List[Note] = deck.notes
+                md_notes: list[Note] = deck.notes
                 md_note_guids = set(n.guid for n in md_notes)
                 # find the guids to delete
                 guids_to_delete = anki_note_guids - md_note_guids
