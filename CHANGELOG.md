@@ -1,3 +1,10 @@
+## DEVELOPMENT VERSION
+
+### Fix
+
+- Switch project management from poetry to uv
+- Upgrade locked dependencies
+
 ## 1.1.1 (2022-06-22)
 
 ### Fix

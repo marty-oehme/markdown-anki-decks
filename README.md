@@ -1,10 +1,19 @@
 # markdown-anki-decks
 
-![PyPI](https://img.shields.io/pypi/v/markdown-anki-decks)
-![PyPI - Python Version](https://img.shields.io/pypi/pyversions/markdown-anki-decks)
-![PyPI - License](https://img.shields.io/pypi/l/markdown-anki-decks)
+<!-- ![PyPI](https://img.shields.io/pypi/v/markdown-anki-decks) -->
+<!-- ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/markdown-anki-decks) -->
+<!-- ![PyPI - License](https://img.shields.io/pypi/l/markdown-anki-decks) -->
 
 Markdown anki decks is a simple program to convert markdown files into anki decks.
+
+This is an updated version of markdown-anki-decks by lukasmurray.
+For the moment I have only switched the package management software used from poetry to uv,
+and ensured that everything still works on newer versions of the dependencies used (especially typer and click).
+Otherwise, only dependency locks are upgraded and everything should work like before.
+
+In other words, this is a maintenance update and currently no feature fork.
+For now it is only forked since there has been little activity on the main repository in the last years,
+and the changes here are pretty substantial from a tooling standpoint.
 
 ```md
 # The h1 tag is the deck title
